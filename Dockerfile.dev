@@ -1,0 +1,14 @@
+FROM node:current-alpine
+
+# specify root directory for next commands
+WORKDIR /app
+
+COPY package.json .
+RUN npm install
+
+# copy package.json and copy everything else is separated
+# intentially to leverage docker caching. after any code change
+# it won't to install npm dependencies each time
+COPY . .
+
+CMD ["npm", "run", "start"]
