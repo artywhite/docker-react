@@ -1,0 +1,12 @@
+language: generic
+
+sudo: required
+
+services:
+    - docker
+
+before_install:
+    - docker build -t arty/docker-react -f Dockerfile.dev .
+
+script:
+    - docker run -e CI=true arty/docker-react npm run test # -e CI=true is how to provide docker env vars
